@@ -1,0 +1,31 @@
+package com.ameda.book.user;/*
+*
+@author ameda
+@project Books
+*
+*/
+
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.time.LocalDateTime;
+
+@Entity
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class Token {
+    @Id
+    @GeneratedValue
+    private Integer id;
+    private String token;
+    private LocalDateTime createdAt;
+    private LocalDateTime expiresAt;
+    private LocalDateTime validatedAt;
+
+    @ManyToOne
+    @JoinColumn(name = "userId", nullable = false)
+    private User user;
+}
