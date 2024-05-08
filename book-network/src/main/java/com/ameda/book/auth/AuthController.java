@@ -6,6 +6,7 @@ package com.ameda.book.auth;/*
 */
 
 import com.ameda.book.auth.DTO.SignUpRequest;
+import com.ameda.book.role.RoleRequest;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
@@ -31,4 +32,10 @@ public class AuthController {
         return ResponseEntity.accepted().build();
     }
 
+    @PostMapping("/add/role")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public ResponseEntity<?> createRole(@RequestBody RoleRequest request){
+        authenticationService.createRole(request);
+        return ResponseEntity.accepted().build();
+    }
 }

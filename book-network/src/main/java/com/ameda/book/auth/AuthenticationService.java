@@ -8,7 +8,9 @@ package com.ameda.book.auth;/*
 import com.ameda.book.auth.DTO.SignUpRequest;
 import com.ameda.book.email.EmailService;
 import com.ameda.book.email.EmailTemplateName;
+import com.ameda.book.role.Role;
 import com.ameda.book.role.RoleRepository;
+import com.ameda.book.role.RoleRequest;
 import com.ameda.book.user.Token;
 import com.ameda.book.user.TokenRepository;
 import com.ameda.book.user.User;
@@ -86,5 +88,14 @@ public class AuthenticationService {
             codeBuilder.append(characters.charAt(randomIndex));
         }
         return  codeBuilder.toString();
+    }
+
+    public void createRole(RoleRequest request) {
+        Role role = Role.builder()
+                .name(request.getRoleName())
+                .createdDate(LocalDateTime.now())
+                .lastModifiedDate(LocalDateTime.now())
+                .build();
+        roleRepository.save(role);
     }
 }
