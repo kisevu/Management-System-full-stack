@@ -5,6 +5,8 @@ package com.ameda.book.auth;/*
 *
 */
 
+import com.ameda.book.auth.DTO.AuthRequest;
+import com.ameda.book.auth.DTO.AuthResponse;
 import com.ameda.book.auth.DTO.SignUpRequest;
 import com.ameda.book.role.RoleRequest;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -31,11 +33,19 @@ public class AuthController {
         authenticationService.signUp(request);
         return ResponseEntity.accepted().build();
     }
+    @PostMapping("/login")
+    public ResponseEntity<AuthResponse> authenticate(@RequestBody AuthRequest request) {
+        return ResponseEntity.ok(authenticationService.authenticate(request));
+    }
 
     @PostMapping("/add/role")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<?> createRole(@RequestBody RoleRequest request){
         authenticationService.createRole(request);
         return ResponseEntity.accepted().build();
+    }
+    @GetMapping("/activate-account")
+    public void confirm(@RequestParam String token) throws MessagingException {
+        authenticationService.activateAccount(token);
     }
 }
