@@ -8,6 +8,7 @@ package com.ameda.book.config;/*
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -38,6 +39,14 @@ public class ConfigSec {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
+    }
+
+    @Bean
+    public AuditorAware<Integer> auditorAware(){
+        return new ApplicationAuditAware();
+        //next we need to tell spring which auditor reference to use after this
+        // which is the bean name as auditorAware and this is done in main application
+        //entry point
     }
 
 }

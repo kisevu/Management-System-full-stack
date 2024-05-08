@@ -5,8 +5,6 @@ package com.ameda.book.book;/*
 *
 */
 
-
-
 import com.ameda.book.common.BaseEntity;
 import com.ameda.book.feedback.FeedBack;
 import com.ameda.book.history.BookTransactionHistory;
@@ -25,7 +23,6 @@ import java.util.List;
 @SuperBuilder
 @Builder
 public class Book extends BaseEntity{
-
     private String title;
     private String authorName;
     private String isbn;
