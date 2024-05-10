@@ -11,18 +11,17 @@ import com.ameda.book.user.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-@Entity
 @Getter
 @Setter
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
-@Builder
+@Entity
 public class BookTransactionHistory extends BaseEntity {
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
