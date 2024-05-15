@@ -5,30 +5,25 @@ package com.ameda.book.auth.DTO;/*
 *
 */
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
 public class SignUpRequest {
-    @NotEmpty(message = "First name should be provided to proceed")
-    @NotBlank(message = "First name should be provided to proceed")
+    @NotEmpty(message = "Firstname is mandatory")
+    @NotNull(message = "Firstname is mandatory")
     private String firstname;
-    @NotEmpty(message = "Last name should be provided to proceed")
-    @NotBlank(message = "Last name should be provided to proceed")
+    @NotEmpty(message = "Lastname is mandatory")
+    @NotNull(message = "Lastname is mandatory")
     private String lastname;
-    @NotEmpty(message = "Provide email in the correct format i.e kev@gmail")
-    @NotBlank(message = "Email should be provided")
-    @Email(message = "email should be well formatted sample as joe@doe")
+    @Email(message = "Email is not well formatted")
+    @NotEmpty(message = "Email is mandatory")
+    @NotNull(message = "Email is mandatory")
     private String email;
-    @NotEmpty(message = "Provide password is a mandatory field")
-    @NotBlank(message = "Password is marked as a key to access your account")
-    @Size(min = 8,message = "Passwords should be 8 characters long and more")
+    @NotEmpty(message = "Password is mandatory")
+    @NotNull(message = "Password is mandatory")
+    @Size(min = 8, message = "Password should be 8 characters long minimum")
     private String password;
 }

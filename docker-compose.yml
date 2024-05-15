@@ -10,7 +10,7 @@ services:
     volumes:
       - postgres:/data/postgres
     ports:
-      - "5432:5432"
+      - "5632:5632"
     networks:
       - books-project
     restart: unless-stopped

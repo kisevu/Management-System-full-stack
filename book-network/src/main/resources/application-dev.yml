@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/books
-    username: ameda
-    password: pass
+    username: postgres
+    password: rootUser@123
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -30,7 +30,7 @@ spring:
         writetimeout: 5000
 
 server:
-  port: 8088
+  port: 9089
 
 application:
   security:

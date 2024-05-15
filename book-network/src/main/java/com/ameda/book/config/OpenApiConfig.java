@@ -12,30 +12,29 @@ import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.info.License;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.servers.Server;
 
 @OpenAPIDefinition(
         info = @Info(
                 contact = @Contact(
-                        name = "Ameda",
+                        name = "Kevin Ameda",
                         email = "amedakevin@gmail.com",
                         url = "https://github.com/kisevu/Management-System-full-stack"
                 ),
-                description = "OpenApi documentation for Spring Security",
+                description = "OpenApi documentation because we have Spring Security",
                 title = "OpenApi specification - Ameda",
                 version = "1.0",
                 license = @License(
-                        name = "Licence name",
-                        url = "https://some-url.com"
+                        name = "ameda kevin developments",
+                        url = "https://www.linkedin.com/in/ameda-kevin/"
                 ),
-                termsOfService = "Terms of service"
+                termsOfService = "Terms and service (not limited to anyone who want use)"
         ),
         servers = {
                 @Server(
                         description = "Local ENV",
-                        url = "http://localhost:8088/api/v1"
+                        url = "http://localhost:9089/api/v1"
                 ),
                 @Server(
                         description = "PROD ENV",

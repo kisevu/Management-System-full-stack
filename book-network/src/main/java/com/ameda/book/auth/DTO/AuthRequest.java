@@ -5,22 +5,20 @@ package com.ameda.book.auth.DTO;/*
 *
 */
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
 public class AuthRequest {
-    @NotEmpty(message = "Provide email in the correct format i.e kev@gmail")
-    @NotBlank(message = "Email should be provided")
+    @Email(message = "Email is not well formatted")
+    @NotEmpty(message = "Email is mandatory")
+    @NotNull(message = "Email is mandatory")
     private String email;
-    @NotEmpty(message = "Provide password is a mandatory field")
-    @NotBlank(message = "Password is marked as a key to access your account")
-    @Size(min = 8,message = "Passwords should be 8 characters long and more")
+
+    @NotEmpty(message = "Password is mandatory")
+    @NotNull(message = "Password is mandatory")
+    @Size(min = 8, message = "Password should be 8 characters long minimum")
     private String password;
 }
