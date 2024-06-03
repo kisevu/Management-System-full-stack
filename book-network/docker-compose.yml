@@ -1,6 +1,6 @@
 services:
   postgres:
-    container_name: postgres-sql-bsn
+    container_name: postgress-book
     image: postgres
     environment:
       POSTGRES_USER: ameda
@@ -10,9 +10,9 @@ services:
     volumes:
       - postgres:/data/postgres
     ports:
-      - "5632:5632"
+      - "5480:5432"
     networks:
-      - books-project
+      - books-network
     restart: unless-stopped
 
   pgadmin:
@@ -27,12 +27,12 @@ services:
     ports:
       - "5050:80"
     networks:
-      - books-project
+      - books-network
     restart: unless-stopped
 
 
   mail-dev:
-    container_name: mail-dev-bsn
+    container_name: mail-dev-books
     image: maildev/maildev
     ports:
       - 1080:1080
@@ -40,7 +40,7 @@ services:
 
 
 networks:
-  books-project:
+  books-network:
     driver: bridge
 
 volumes:
