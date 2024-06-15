@@ -114,6 +114,7 @@ public class AuthenticationService {
 
         if (LocalDateTime.now().isAfter(savedToken.getExpiresAt())) {
             sendValidationEmail(savedToken.getUser());
+            log.info("Activation token has expired. A new token has been sent to your address");
             throw new RuntimeException("Activation token has expired. A new token has been sent to your address");
         }
 

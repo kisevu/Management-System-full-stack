@@ -28,7 +28,6 @@ public class AuthController {
 
     @PostMapping("/sign-up")
     @ResponseStatus(HttpStatus.ACCEPTED)
-
     public ResponseEntity<?> signUp(@RequestBody @Valid SignUpRequest request) throws MessagingException {
         authenticationService.signUp(request);
         return ResponseEntity.accepted().build();

@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.scheduling.annotation.EnableAsync;
 
-import java.time.LocalDateTime;
+
 
 @SpringBootApplication
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")
@@ -19,17 +19,17 @@ public class BookNetworkApiApplication{
 	@Autowired
 	private RoleRepository roleRepository;
 
-	@Bean
-	public CommandLineRunner commandLineRunner (
-			RoleRepository roleRepository
-	){
-		return args ->{
-			var role = Role.builder()
-					.name("USER")
-					.build();
-			roleRepository.save(role);
-		};
-	}
+//	@Bean
+//	public CommandLineRunner commandLineRunner (
+//			RoleRepository roleRepository
+//	){
+//		return args ->{
+//			var role = Role.builder()
+//					.name("ADMIN")
+//					.build();
+//			roleRepository.save(role);
+//		};
+//	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(BookNetworkApiApplication.class, args);
