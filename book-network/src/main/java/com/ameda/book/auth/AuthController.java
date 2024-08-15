@@ -1,13 +1,14 @@
-package com.ameda.book.auth;/*
+package com.ameda.book.auth;
+/*
 *
 @author ameda
 @project Books
 *
 */
 
-import com.ameda.book.auth.DTO.AuthRequest;
-import com.ameda.book.auth.DTO.AuthResponse;
-import com.ameda.book.auth.DTO.SignUpRequest;
+import com.ameda.book.auth.DTO.AuthenticationRequest;
+import com.ameda.book.auth.DTO.AuthenticationResponse;
+import com.ameda.book.auth.DTO.RegistrationRequest;
 import com.ameda.book.role.RoleRequest;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
@@ -28,12 +29,12 @@ public class AuthController {
 
     @PostMapping("/sign-up")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<?> signUp(@RequestBody @Valid SignUpRequest request) throws MessagingException {
+    public ResponseEntity<?> signUp(@RequestBody @Valid RegistrationRequest request) throws MessagingException {
         authenticationService.signUp(request);
         return ResponseEntity.accepted().build();
     }
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> authenticate(@RequestBody AuthRequest request) {
+    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 

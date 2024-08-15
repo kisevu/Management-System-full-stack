@@ -1,4 +1,5 @@
-package com.ameda.book.exceptions;/*
+package com.ameda.book.exceptions;
+/*
 *
 @author ameda
 @project Books

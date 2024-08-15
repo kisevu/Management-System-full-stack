@@ -10,6 +10,6 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-public class AuthResponse {
+public class AuthenticationResponse {
     private String token;
 }

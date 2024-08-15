@@ -5,9 +5,9 @@ package com.ameda.book.auth;/*
 *
 */
 
-import com.ameda.book.auth.DTO.AuthRequest;
-import com.ameda.book.auth.DTO.AuthResponse;
-import com.ameda.book.auth.DTO.SignUpRequest;
+import com.ameda.book.auth.DTO.AuthenticationRequest;
+import com.ameda.book.auth.DTO.AuthenticationResponse;
+import com.ameda.book.auth.DTO.RegistrationRequest;
 import com.ameda.book.email.EmailService;
 import com.ameda.book.email.EmailTemplateName;
 import com.ameda.book.role.Role;
@@ -27,6 +27,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
@@ -48,7 +49,7 @@ public class AuthenticationService {
     @Value("${application.mailing.frontend.activation-url}")
     private String activationUrl;
 
-    public void signUp(SignUpRequest request) throws MessagingException {
+    public void signUp(RegistrationRequest request) throws MessagingException {
         var userRole = roleRepository.findByName("USER")
                 .orElseThrow(()->new IllegalStateException("role user not initialized."));
         var user = User.builder()
@@ -108,6 +109,7 @@ public class AuthenticationService {
         roleRepository.save(role);
     }
 
+    @Transactional
     public void activateAccount(String token) throws MessagingException {
         Token savedToken = tokenRepository.findByToken(token)
                 .orElseThrow(() -> new RuntimeException("Invalid token"));
@@ -127,7 +129,7 @@ public class AuthenticationService {
         tokenRepository.save(savedToken);
     }
 
-    public AuthResponse authenticate(AuthRequest request) {
+    public AuthenticationResponse authenticate(AuthenticationRequest request) {
         var auth = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
@@ -140,7 +142,7 @@ public class AuthenticationService {
         claims.put("fullName", user.fullName());
 
         var jwtToken = jwtService.generateToken(claims, (User) auth.getPrincipal());
-        return AuthResponse.builder()
+        return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
     }

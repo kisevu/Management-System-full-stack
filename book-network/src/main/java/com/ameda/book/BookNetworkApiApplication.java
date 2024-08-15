@@ -25,7 +25,7 @@ public class BookNetworkApiApplication{
 //	){
 //		return args ->{
 //			var role = Role.builder()
-//					.name("ADMIN")
+//					.name("USER")
 //					.build();
 //			roleRepository.save(role);
 //		};
