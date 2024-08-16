@@ -14,6 +14,8 @@ import com.ameda.book.history.BookTransactionHistoryRepository;
 import com.ameda.book.user.User;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -27,8 +29,10 @@ import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
+
 public class BookService {
 
+    private static final Logger log = LoggerFactory.getLogger(BookService.class);
     private final BookMapper bookMapper;
     private final BookRepository bookRepository;
     private final BookTransactionHistoryRepository transactionHistoryRepository;
@@ -47,19 +51,16 @@ public class BookService {
                 .orElseThrow(()->new EntityNotFoundException("No book found with id: "+bookId));
     }
 
+
     public PageResponse<BookResponse> findAllBooks(int page, int size, Authentication connectedUser) {
-        var user = ((User) connectedUser.getPrincipal());
-        Pageable  pageable = PageRequest.of(page,size, Sort.by("createdDate")
-                .descending());
-        Page<Book> books = bookRepository.findAllDisplayableBooks(pageable,user.getId());
-                //if a book should not be displayed then it shouldn't be displayed
-                //at all hence the method above
-        //also gets books except of the connected user
-        List<BookResponse> bookResponses = books.stream()
+        User user = ((User) connectedUser.getPrincipal());
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
+        Page<Book> books = bookRepository.findAllDisplayableBooks(pageable, user.getId());
+        List<BookResponse> booksResponse = books.stream()
                 .map(bookMapper::toBookResponse)
                 .toList();
         return new PageResponse<>(
-                bookResponses,
+                booksResponse,
                 books.getNumber(),
                 books.getSize(),
                 books.getTotalElements(),
@@ -68,6 +69,18 @@ public class BookService {
                 books.isLast()
         );
     }
+    public PageResponse<BookResponse> findBooks(int page, int size, Authentication connectedUser){
+       User user = (User) connectedUser.getPrincipal();
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
+        Page<Book> books = bookRepository.findAll(pageable);
+        List<BookResponse> bookResponse = books.stream()
+                .map(bookMapper::toBookResponse)
+                .toList();
+        return new PageResponse<>(
+                bookResponse
+        );
+    }
+
 
     public PageResponse<BookResponse> findAllBooksByOwner(int page, int size, Authentication connectedUser) {
         var user = ((User) connectedUser.getPrincipal());

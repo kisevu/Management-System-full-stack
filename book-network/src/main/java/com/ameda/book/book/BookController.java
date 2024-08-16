@@ -1,4 +1,5 @@
-package com.ameda.book.book;/*
+package com.ameda.book.book;
+/*
 *
 @author ameda
 @project Books
@@ -32,12 +33,12 @@ public class BookController {
     public ResponseEntity<BookResponse> findBookById(@PathVariable("bookId") Integer bookId){
         return ResponseEntity.ok(bookService.findById(bookId));
     }
-    @GetMapping("all")
+    @GetMapping
     public ResponseEntity<PageResponse<BookResponse>> findAllBooks(
             @RequestParam(name = "page",defaultValue = "0", required = false) int page,
             @RequestParam(name = "size",defaultValue = "10", required = false) int size,
             Authentication connectedUser){
-        return ResponseEntity.ok(bookService.findAllBooks(page,size,connectedUser));
+        return ResponseEntity.ok(bookService.findBooks(page,size,connectedUser));
     }
     @GetMapping("/owner")
     public ResponseEntity<PageResponse<BookResponse>> findAllBooksByOwner(

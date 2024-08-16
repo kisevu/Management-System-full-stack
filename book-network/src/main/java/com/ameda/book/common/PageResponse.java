@@ -6,7 +6,6 @@ package com.ameda.book.common;/*
 */
 
 import lombok.*;
-import org.hibernate.validator.constraints.NotBlank;
 
 import java.util.List;
 
@@ -23,4 +22,8 @@ public class PageResponse <T>{
     private int totalPages;
     private boolean first;
     private boolean last;
+
+    public PageResponse(List<T> content){
+        this.content = content;
+    }
 }
