@@ -14,6 +14,7 @@ export class BookListComponent implements OnInit{
     bookResponse: PageResponseBookResponse = {};
     page: number = 0;
     size: number = 5;
+    pages: any = [];
 
       constructor(
         private bookService: BookService,
@@ -34,4 +35,21 @@ export class BookListComponent implements OnInit{
                 }
             });
        }
+
+    goToFirstPage(){
+     this.page = 0;
+     this.findAllBooks();
+     }
+
+    goToPreviousPage(){ this.page--; this.findAllBooks();}
+
+    gotToPage(page: number){this.page=page; this.findAllBooks();}
+
+    goToNextPage(){ this.page++; this.findAllBooks();}
+
+    goToLastPage(){ this.page = this.bookResponse.totalPages as number -1; this.findAllBooks();}
+
+    get isLastPage() : boolean {
+     return this.page == this.bookResponse.totalPages as number -1;
+      }
 }

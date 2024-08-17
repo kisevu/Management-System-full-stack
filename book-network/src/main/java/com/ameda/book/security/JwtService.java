@@ -31,6 +31,7 @@ public class JwtService {
     public String extractUserName(String token){
         return extractClaim(token, Claims::getSubject);
     }
+
     public <T>  T extractClaim(String token, Function<Claims,T>claimResolver){
         final Claims claims = extractAllClaims(token);
         return  claimResolver.apply(claims);
@@ -40,6 +41,7 @@ public class JwtService {
         return  Jwts
                 .parserBuilder()
                 .setSigningKey(getSignInKey())
+                .setAllowedClockSkewSeconds(60)
                 .build()
                 .parseClaimsJws(token)
                 .getBody();

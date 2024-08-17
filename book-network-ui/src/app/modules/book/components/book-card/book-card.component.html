@@ -1,5 +1,11 @@
-    <div class="card" style="width:20rem;">
-      <img  height="200" [src]="bookCover" class="card-img-top" alt="..."/>
+    <div class="card" style="width:20rem; margin-bottom:100px; margin-right:20px;">
+      <img
+        [src]="bookCover"
+        class="card-img-top"
+        alt="..."
+        style="height: 200px; width: 318px; object-fit: cover;"
+      />
+
       <div class="card-body">
         <h5 class="card-title fs-6 text-nowrap fw-bold mb-1">
           <i class="fa-solid fa-book"></i>&nbsp;{{book.title}}
