@@ -15,6 +15,8 @@ export class BookListComponent implements OnInit{
     page: number = 0;
     size: number = 5;
     pages: any = [];
+    message: string = '';
+    level: string = 'success';
 
       constructor(
         private bookService: BookService,
@@ -52,4 +54,22 @@ export class BookListComponent implements OnInit{
     get isLastPage() : boolean {
      return this.page == this.bookResponse.totalPages as number -1;
       }
+
+    borrowBook(book: BookResponse){
+      this.message = '';
+      this.bookService.borrowBook({
+     'bookId': book.id as number
+     }).subscribe({
+            next: () =>{
+              this.level = 'success';
+              this.message = 'Book successfully added to your list';
+                },
+            error: (err) => {
+              console.log(err);
+              this.level = 'error';
+              this.message = err.error.error;
+                }
+            })
+        }
+
 }
