@@ -73,5 +73,10 @@ export class MyBooksComponent implements OnInit{
                 }
             })
         }
+    shareBook(book:BookResponse){}
+    archiveBook(book:BookResponse){}
+    editBook(book:BookResponse){
+     this.router.navigate(['books','manage',book.id]);
+     }
 
 }
