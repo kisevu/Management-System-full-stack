@@ -1,4 +1,8 @@
-    <div class="card" style="width:20rem; margin-bottom:100px; margin-right:20px;">
+    <div class="card border-2"
+         style="width:20rem; margin-bottom:100px; margin-right:20px;"
+         [class.border-success]="book.shareable"
+         [class.border-warning]="book.archived">
+
       <img
         [src]="bookCover"
         class="card-img-top"
