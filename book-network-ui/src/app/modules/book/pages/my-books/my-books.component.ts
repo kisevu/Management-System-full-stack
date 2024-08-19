@@ -84,7 +84,15 @@ export class MyBooksComponent implements OnInit{
                     });
    }
 
-    archiveBook(book:BookResponse){}
+    archiveBook(book:BookResponse){
+        this.bookService.updateArchivedStats({
+          'bookId': book.id as number
+           }).subscribe({
+            next: () => {
+            book.archived = !book.archived;
+             }
+          })
+     }
 
     editBook(book:BookResponse){
      this.router.navigate(['books','manage',book.id]);
