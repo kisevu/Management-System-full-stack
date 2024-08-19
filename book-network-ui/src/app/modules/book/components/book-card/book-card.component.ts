@@ -23,16 +23,16 @@ export class BookCardComponent{
               return this._book;
             }
 
-           get bookCover(): string | undefined{
-           if(this._book.cover){
-                   return 'data:image/jpg;base64,' + this._book.cover;
-             }
-           return this._bookCover;
+           get bookCover(): string | undefined {
+             if(this._book.cover){
+                     return 'data:image/jpg;base64,' + this._book.cover;
+               }
+             return this._bookCover;
             }
 
             @Input()
              set manage(value: boolean){
-            this._manage = value;
+              this._manage = value;
             }
 
             get manage(): boolean{
