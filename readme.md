@@ -25,13 +25,13 @@
 ➤ **Use ngserve command in root directory of book-network-ui to start frontend**
 
  ### Resources
-![registration](src/main/resources/static/images/SignUp.JPG)
+![registration](https://github.com/kisevu/Management-System-full-stack/blob/reworked-main/book-network/src/main/resources/static/images/SignUp.JPG)
 
-![login](src/main/resources/static/images/login.JPG)
+![login](https://github.com/kisevu/Management-System-full-stack/blob/reworked-main/book-network/src/main/resources/static/images/login.JPG)
 
-![books](src/main/resources/static/images/books.JPG)
+![books](https://github.com/kisevu/Management-System-full-stack/blob/reworked-main/book-network/src/main/resources/static/images/books.JPG)
 
-![List of borrowed books](src/main/resources/static/images/borrowed.JPG)
+![List of borrowed books](https://github.com/kisevu/Management-System-full-stack/blob/reworked-main/book-network/src/main/resources/static/images/borrowed.JPG)
 
   
    
