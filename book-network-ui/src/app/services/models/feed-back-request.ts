@@ -3,5 +3,5 @@
 export interface FeedBackRequest {
   bookId: number;
   comment: string;
-  note?: string;
+  note?: number;
 }

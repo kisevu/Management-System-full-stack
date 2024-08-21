@@ -676,7 +676,8 @@
         "type": "object",
         "properties": {
           "note": {
-            "type": "string"
+            "type": "number",
+            "format": "double"
           },
           "comment": {
             "type": "string"

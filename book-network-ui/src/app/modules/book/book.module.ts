@@ -10,6 +10,7 @@ import { MyBooksComponent } from './pages/my-books/my-books.component';
 import { BookCardComponent } from './components/book-card/book-card.component';
 import { RatingComponent } from './components/rating/rating.component';
 import { ManageBookComponent } from './pages/manage-book/manage-book.component';
+import { BorrowedBookListComponent } from './pages/borrowed-book-list/borrowed-book-list.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { ManageBookComponent } from './pages/manage-book/manage-book.component';
     BookCardComponent,
     RatingComponent,
     MyBooksComponent,
-    ManageBookComponent
+    ManageBookComponent,
+    BorrowedBookListComponent
   ],
   imports: [
     CommonModule,
