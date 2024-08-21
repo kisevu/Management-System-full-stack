@@ -1,0 +1,4 @@
+
+
+This is the interceptor folder used to intercept each and every http requests to add the
+authorization header which is the jwt token

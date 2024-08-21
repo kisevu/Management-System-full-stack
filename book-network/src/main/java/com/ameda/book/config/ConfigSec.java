@@ -1,4 +1,5 @@
-package com.ameda.book.config;/*
+package com.ameda.book.config;
+/*
 *
 @author ameda
 @project Books
@@ -61,6 +62,7 @@ public class ConfigSec {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         final CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
+        //below property sorts out the CORs error.
         config.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
         config.setAllowedHeaders(Arrays.asList(
                 HttpHeaders.ORIGIN,
@@ -76,6 +78,7 @@ public class ConfigSec {
                 "PUT"
         ));
         source.registerCorsConfiguration("/**",config);
+        //register for /books, /feedback etc
         return new CorsFilter(source);
     }
 
