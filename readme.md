@@ -25,10 +25,13 @@
 ➤ **Use ngserve command in root directory of book-network-ui to start frontend**
 
  ### Resources
-![registration](C:\Users\ameda\Downloads\Management-System-full-stack\png\SignUp.png)
-![login](C:\Users\ameda\Downloads\Management-System-full-stack\png\login.png)
-![books](C:\Users\ameda\Downloads\Management-System-full-stack\png\books.png)
-![List of borrowed books](C:\Users\ameda\Downloads\Management-System-full-stack\png\borrowed.png)
+![registration](Management-System-full-stack/png/SignUp.png)
+---
+![login](Management-System-full-stack/png/login.png)
+---
+![books](Management-System-full-stack/png/books.png)
+---
+![List of borrowed books](Management-System-full-stack/png/borrowed.png)
 
   
    
