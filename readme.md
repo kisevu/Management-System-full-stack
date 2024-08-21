@@ -25,13 +25,13 @@
 ➤ **Use ngserve command in root directory of book-network-ui to start frontend**
 
  ### Resources
-![registration](Management-System-full-stack/png/SignUp.png)
----
-![login](Management-System-full-stack/png/login.png)
----
-![books](Management-System-full-stack/png/books.png)
----
-![List of borrowed books](Management-System-full-stack/png/borrowed.png)
+![registration](src/main/resources/png/SignUp.png)
+
+![login](src/main/resources/png/login.png)
+
+![books](src/main/resources/png/books.png)
+
+![List of borrowed books](src/main/resources/png/borrowed.png)
 
   
    
