@@ -1,16 +1,20 @@
-package com.ameda.book.role;/*
+/*
+package com.ameda.book.role;*/
+/*
 *
 @author ameda
 @project Books
 *
-*/
+*//*
+
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@Repository
+//@Repository
 public interface RoleRepository extends JpaRepository<Role,Integer> {
     Optional<Role> findByName(String name);
 }
+*/

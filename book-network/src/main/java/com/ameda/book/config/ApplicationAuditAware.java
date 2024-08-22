@@ -1,4 +1,5 @@
-package com.ameda.book.config;/*
+package com.ameda.book.config;
+/*
 *
 @author ameda
 @project Books
@@ -13,10 +14,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Optional;
 
-public class ApplicationAuditAware implements AuditorAware<Integer> {
+public class ApplicationAuditAware implements AuditorAware<String> {
 
     @Override
-    public Optional<Integer> getCurrentAuditor() {
+    public Optional<String> getCurrentAuditor() {
         //given that we updated the context holder we're able to get the current auditor
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(authentication==null || !authentication.isAuthenticated() || authentication instanceof
@@ -25,7 +26,7 @@ public class ApplicationAuditAware implements AuditorAware<Integer> {
             // or if we do not know the actual user
             return Optional.empty();
         }
-        User principal = (User) authentication.getPrincipal();
-        return Optional.ofNullable(principal.getId());
+//        User principal = (User) authentication.getPrincipal();
+        return Optional.ofNullable(authentication.getName());
     }
 }

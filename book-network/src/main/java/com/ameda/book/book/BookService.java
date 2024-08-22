@@ -38,10 +38,9 @@ public class BookService {
     private final BookTransactionHistoryRepository transactionHistoryRepository;
     private final FileStorageService fileStorageService;
     public Integer save(BookRequest request, Authentication connectedUser) {
-        var user = ((User) connectedUser.getPrincipal());
+//        var user = ((User) connectedUser.getPrincipal());
         //principal is the connected user also we implemented the Principal interface for User Entity
         Book book = bookMapper.toBook(request);
-        book.setOwner(user); // here setting the owner of the book
         return  bookRepository.save(book).getId();
     }
 
@@ -53,9 +52,9 @@ public class BookService {
 
 
     public PageResponse<BookResponse> findAllBooks(int page, int size, Authentication connectedUser) {
-        User user = ((User) connectedUser.getPrincipal());
+//        User user = ((User) connectedUser.getPrincipal());
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
-        Page<Book> books = bookRepository.findAllDisplayableBooks(pageable, user.getId());
+        Page<Book> books = bookRepository.findAllDisplayableBooks(pageable, connectedUser.getName());
         List<BookResponse> booksResponse = books.stream()
                 .map(bookMapper::toBookResponse)
                 .toList();
@@ -70,7 +69,7 @@ public class BookService {
         );
     }
     public PageResponse<BookResponse> findBooks(int page, int size, Authentication connectedUser){
-       User user = (User) connectedUser.getPrincipal();
+//       User user = (User) connectedUser.getPrincipal();
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
         Page<Book> books = bookRepository.findAll(pageable);
         List<BookResponse> bookResponse = books.stream()
@@ -83,10 +82,10 @@ public class BookService {
 
 
     public PageResponse<BookResponse> findAllBooksByOwner(int page, int size, Authentication connectedUser) {
-        var user = ((User) connectedUser.getPrincipal());
+//        var user = ((User) connectedUser.getPrincipal());
         Pageable  pageable = PageRequest.of(page,size, Sort.by("createdDate")
                 .descending());
-        Page<Book> books = bookRepository.findAll(BookSpec.withOwnerId(user.getId()),pageable);
+        Page<Book> books = bookRepository.findAll(BookSpec.withOwnerId(connectedUser.getName()),pageable);
 
         List<BookResponse> bookResponses = books.stream()
                 .map(bookMapper::toBookResponse)
@@ -103,10 +102,10 @@ public class BookService {
     }
 
     public PageResponse<BorrowedBookResponse> findAllBorrowedBooks(int page, int size, Authentication connectedUser) {
-        var user = ((User) connectedUser.getPrincipal());
+//        var user = ((User) connectedUser.getPrincipal());
         Pageable  pageable = PageRequest.of(page,size, Sort.by("createdDate")
                 .descending());
-        Page<BookTransactionHistory> borrowedBooks = transactionHistoryRepository.findAllBorrowedBooks(pageable,user.getId());
+        Page<BookTransactionHistory> borrowedBooks = transactionHistoryRepository.findAllBorrowedBooks(pageable, connectedUser.getName());
         List<BorrowedBookResponse> borrowedResponse = borrowedBooks.stream()
                 .map(bookMapper::toBorrowedResponse)
                 .toList();
@@ -122,10 +121,10 @@ public class BookService {
     }
 
     public PageResponse<BorrowedBookResponse> findAllReturnedBooks(int page, int size, Authentication connectedUser) {
-        var user = ((User) connectedUser.getPrincipal());
+//        var user = ((User) connectedUser.getPrincipal());
         Pageable  pageable = PageRequest.of(page,size, Sort.by("createdDate")
                 .descending());
-        Page<BookTransactionHistory> borrowedBooks = transactionHistoryRepository.findAllReturnedBooks(pageable,user.getId());
+        Page<BookTransactionHistory> borrowedBooks = transactionHistoryRepository.findAllReturnedBooks(pageable, connectedUser.getName());
         List<BorrowedBookResponse> borrowedResponse = borrowedBooks.stream()
                 .map(bookMapper::toBorrowedResponse)
                 .toList();
@@ -143,9 +142,9 @@ public class BookService {
     public Integer updateShareableStats(Integer bookId, Authentication connectedUser) {
         Book book = bookRepository.findById(bookId)
                 .orElseThrow(()-> new EntityNotFoundException("no book found with passed id: "+bookId));
-        var user = ((User) connectedUser.getPrincipal());
+//        var user = ((User) connectedUser.getPrincipal());
         //only owner can update the book
-        if(!Objects.equals(book.getOwner().getId(),user.getId())){
+        if(!Objects.equals(book.getCreatedBy(),connectedUser.getName())){
             throw new OperationNotPermittedException("Sorry you are not the owner of the book, man!!!");
         }
         book.setShareable(!book.isShareable());
@@ -156,9 +155,9 @@ public class BookService {
     public Integer updateArchivedStats(Integer bookId, Authentication connectedUser) {
         Book book = bookRepository.findById(bookId)
                 .orElseThrow(()-> new EntityNotFoundException("no book found with passed id: "+bookId));
-        var user = ((User) connectedUser.getPrincipal());
+//        var user = ((User) connectedUser.getPrincipal());
         //only owner can update the book
-        if(!Objects.equals(book.getOwner().getId(),user.getId())){
+        if(!Objects.equals(book.getCreatedBy(),connectedUser.getName())){
             throw new OperationNotPermittedException("Sorry you are not the owner of the book, man!!!");
         }
         book.setArchived(!book.isArchived());
@@ -174,19 +173,19 @@ public class BookService {
             throw new OperationNotPermittedException("requested book cannot be borrowed is archived or not shareable");
         }
         // you can borrow
-        var user = ((User) connectedUser.getPrincipal());
-        if(Objects.equals(book.getOwner().getId(),user.getId())){
+//        var user = ((User) connectedUser.getPrincipal());
+        if(Objects.equals(book.getCreatedBy(),connectedUser.getName())){
             //owner is same connected user...
             throw new OperationNotPermittedException("You cannot borrow from yourself");
         }
-        final boolean isBorrowed = transactionHistoryRepository.isAlreadyBorrowedByUser(bookId,user.getId());
+        final boolean isBorrowed = transactionHistoryRepository.isAlreadyBorrowedByUser(bookId,connectedUser.getName());
         if(isBorrowed){
             throw new OperationNotPermittedException("Requested book is borrowed already");
         }
         // the book is available
 
         BookTransactionHistory bookTransactionHistory = BookTransactionHistory.builder()
-                .user(user)
+                .userId(connectedUser.getName())
                 .book(book)
                 .returned(false)
                 .returnApproved(false)
@@ -203,12 +202,12 @@ public class BookService {
             throw new OperationNotPermittedException("requested book cannot be borrowed is archived or not shareable");
         }
         // you can borrow
-        var user = ((User) connectedUser.getPrincipal());
-        if(Objects.equals(book.getOwner().getId(),user.getId())){
+//        var user = ((User) connectedUser.getPrincipal());
+        if(Objects.equals(book.getCreatedBy(),connectedUser.getName())){
             //owner is same connected user...
             throw new OperationNotPermittedException("You cannot borrow from or return book to yourself");
         }
-        BookTransactionHistory bookTransactionHistory = transactionHistoryRepository.findByBookIdAndUserId(bookId,user.getId())
+        BookTransactionHistory bookTransactionHistory = transactionHistoryRepository.findByBookIdAndUserId(bookId, connectedUser.getName())
                 .orElseThrow(()-> new OperationNotPermittedException("You did not borrow this book"));
         bookTransactionHistory.setReturned(true);
        return transactionHistoryRepository.save(bookTransactionHistory).getId();
@@ -223,12 +222,12 @@ public class BookService {
             throw new OperationNotPermittedException("requested book cannot be borrowed is archived or not shareable");
         }
         // you can borrow
-        var user = ((User) connectedUser.getPrincipal());
-        if(!Objects.equals(book.getOwner().getId(),user.getId())){
+//        var user = ((User) connectedUser.getPrincipal());
+        if(!Objects.equals(book.getCreatedBy(),connectedUser.getName())){
             //owner is same connected user...
             throw new OperationNotPermittedException("You cannot return a book that you don't own");
         }
-        BookTransactionHistory bookTransactionHistory = transactionHistoryRepository.findByBookIdAndOwnerId(bookId,user.getId())
+        BookTransactionHistory bookTransactionHistory = transactionHistoryRepository.findByBookIdAndOwnerId(bookId, connectedUser.getName())
                 .orElseThrow(()-> new OperationNotPermittedException("Book is not returned yet, you cannot approve its return"));
         bookTransactionHistory.setReturnApproved(true);
         return  transactionHistoryRepository.save(bookTransactionHistory).getId();
@@ -237,8 +236,8 @@ public class BookService {
     public void uploadCoverPic(Integer bookId, MultipartFile file, Authentication connectedUser) {
         Book book = bookRepository.findById(bookId)
                 .orElseThrow(()->new EntityNotFoundException("Book was not found with id: "+bookId));
-        var user = ((User) connectedUser.getPrincipal());
-        var bookCover = fileStorageService.saveFile(file,bookId,user.getId());
+//        var user = ((User) connectedUser.getPrincipal());
+        var bookCover = fileStorageService.saveFile(file,connectedUser.getName());
         book.setBookCover(bookCover);
         bookRepository.save(book);
     }

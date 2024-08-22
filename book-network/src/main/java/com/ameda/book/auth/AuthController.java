@@ -1,10 +1,13 @@
+/*
 package com.ameda.book.auth;
+*/
 /*
 *
 @author ameda
 @project Books
 *
-*/
+*//*
+
 
 import com.ameda.book.auth.DTO.AuthenticationRequest;
 import com.ameda.book.auth.DTO.AuthenticationResponse;
@@ -19,7 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+//@RestController
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("auth")
@@ -49,3 +52,4 @@ public class AuthController {
         authenticationService.activateAccount(token);
     }
 }
+*/

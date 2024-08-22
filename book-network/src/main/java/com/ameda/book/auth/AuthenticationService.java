@@ -1,9 +1,12 @@
-package com.ameda.book.auth;/*
+/*
+package com.ameda.book.auth;*/
+/*
 *
 @author ameda
 @project Books
 *
-*/
+*//*
+
 
 import com.ameda.book.auth.DTO.AuthenticationRequest;
 import com.ameda.book.auth.DTO.AuthenticationResponse;
@@ -34,7 +37,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 
-@Service
+//@Service
 @Slf4j
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -147,3 +150,4 @@ public class AuthenticationService {
                 .build();
     }
 }
+*/

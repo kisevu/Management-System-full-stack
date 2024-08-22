@@ -1,9 +1,10 @@
-package com.ameda.book.role;/*
-*
+package com.ameda.book.role;
+/*
 @author ameda
 @project Books
-*
 */
+
+
 
 import com.ameda.book.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -20,9 +21,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
-@Entity
+//@Entity
 @Builder
-@EntityListeners(AuditingEntityListener.class)
+//@EntityListeners(AuditingEntityListener.class)
 public class Role {
     @Id
     @GeneratedValue

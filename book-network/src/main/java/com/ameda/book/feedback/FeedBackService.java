@@ -39,8 +39,8 @@ public class FeedBackService {
             throw new OperationNotPermittedException("Cannot give feedback to archived and non-shareable book.");
         }
         // you can borrow
-        var user = ((User) connectedUser.getPrincipal());
-        if(Objects.equals(book.getOwner().getId(),user.getId())){
+//        var user = ((User) connectedUser.getPrincipal());
+        if(Objects.equals(book.getCreatedBy(),connectedUser.getName())){
             //owner is same connected user...
             throw new OperationNotPermittedException("You cannot give feedback for your own book.");
         }

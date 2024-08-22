@@ -27,11 +27,6 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @RequiredArgsConstructor
 @EnableMethodSecurity(securedEnabled = true) //for role-based security
 public class SecurityConfig {
-    private final AuthenticationProvider authenticationProvider;
-    private final JwtAuthFilter jwtAuthFilter;
-
-    //spring automatically looks for any definitions of CorsFilter
-    //use it by itself
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -55,9 +50,12 @@ public class SecurityConfig {
                                 .anyRequest()
                                 .authenticated()
                 )
-                .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
-                .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .oauth2ResourceServer(auth ->
+                          auth.jwt(
+                                  token ->
+                                          token.jwtAuthenticationConverter(
+                                                   new KeycloakJwtAuthenticationConverter()
+                                          ))); // here we're converting the kecloak roles to spring ones
 
         return http.build();
     }

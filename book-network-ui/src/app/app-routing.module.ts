@@ -7,6 +7,12 @@ import {ActivateAccountComponent} from './pages/activate-account/activate-accoun
 import {authGuard} from './services/guard/auth.guard';
 
 const routes: Routes = [
+ //once a user hits no path redirect to books always
+   {
+    path: '',
+    redirectTo: 'books',
+    pathMatch: 'full'
+   },
     {
     path: 'login',
     component: LoginComponent
@@ -28,8 +34,8 @@ const routes: Routes = [
 
   ];
 
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
+  @NgModule({
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
+  })
 export class AppRoutingModule { }

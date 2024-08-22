@@ -6,6 +6,7 @@ package com.ameda.book.config;
 *
 */
 
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +23,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -29,7 +31,7 @@ import java.util.Collections;
 @RequiredArgsConstructor
 public class ConfigSec {
 
-    private final UserDetailsService userDetailsService;
+    /*private final UserDetailsService userDetailsService;
 
     @Bean
     public AuthenticationProvider authenticationProvider(){
@@ -47,10 +49,10 @@ public class ConfigSec {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
-    }
+    }*/
 
     @Bean
-    public AuditorAware<Integer> auditorAware(){
+    public AuditorAware<String> auditorAware(){
         return new ApplicationAuditAware();
         //next we need to tell spring which auditor reference to use after this
         // which is the bean name as auditorAware and this is done in main application

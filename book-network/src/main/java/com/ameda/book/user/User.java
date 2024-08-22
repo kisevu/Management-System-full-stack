@@ -24,14 +24,16 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static jakarta.persistence.FetchType.EAGER;
+
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "users")
-@EntityListeners(AuditingEntityListener.class)
+//@Entity
+//@Table(name = "users")
+//@EntityListeners(AuditingEntityListener.class)
 public class User implements UserDetails, Principal {
     @Id
     @GeneratedValue
@@ -44,9 +46,6 @@ public class User implements UserDetails, Principal {
     private String password;
     private boolean accountLocked;
     private boolean enabled;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Role> roles;
 
     @OneToMany(mappedBy = "owner")
     private List<Book> books;
@@ -61,6 +60,8 @@ public class User implements UserDetails, Principal {
     @LastModifiedDate
     @Column(insertable = false)
     private  LocalDateTime lastModifiedDate;
+    @ManyToMany(fetch = EAGER)
+    private List<Role> roles;
 
     @Override
     public String getName() {
