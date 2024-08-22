@@ -62,5 +62,8 @@ networks:
 
 volumes:
   postgres:
+    driver: local
   pgadmin:
+    driver: local
+  keycloak:
     driver: local
