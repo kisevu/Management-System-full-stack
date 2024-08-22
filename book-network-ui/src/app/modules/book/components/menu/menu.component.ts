@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import {KeycloakService} from '../../../../services/keycloak/keycloak.service';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -7,22 +7,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit{
 
-    ngOnInit() : void {
-      const linkColor = document.querySelectorAll('.nav-link');
-      linkColor.forEach( link =>{
-      if(window.location.href.endsWith(link.getAttribute('href') || '' )){
-           link.classList.add('active');
-           }
-      link.addEventListener('click', () => {
-        linkColor.forEach( l => l.classList.remove('active'));
-        link.classList.add('active');
-        });
-        });
+     constructor(
+      private keycloakService: KeycloakService
+     ){}
 
-    }
+      ngOnInit() : void {
+        const linkColor = document.querySelectorAll('.nav-link');
+        linkColor.forEach( link =>{
+        if(window.location.href.endsWith(link.getAttribute('href') || '' )){
+             link.classList.add('active');
+             }
+        link.addEventListener('click', () => {
+          linkColor.forEach( l => l.classList.remove('active'));
+          link.classList.add('active');
+            });
+          });
 
-     logout(){
-     localStorage.removeItem('token');
-     window.location.reload();
+      }
+
+       async logout(){
+         this.keycloakService.logout();
         }
 }
